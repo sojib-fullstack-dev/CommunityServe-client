@@ -9,10 +9,10 @@ const impactStats = [
 
 export default function HeroSection() {
   return (
-    <section className="relative isolate min-h-screen overflow-hidden bg-[#F8F5EC] text-[#065F46] mt-10">
+    <section className="relative isolate min-h-screen overflow-hidden bg-[#F8F5EC] pt-20 text-[#065F46]">
       <div className="absolute inset-x-0 top-0 h-44 bg-[radial-gradient(circle_at_12%_20%,rgba(249,115,22,0.08),transparent_24%)]" />
 
-      <div className="mx-auto grid min-h-screen max-w-[1440px] items-center gap-12 px-6 py-12 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-16 xl:px-20">
+      <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-[1440px] items-center gap-12 px-6 py-12 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-16 xl:px-20">
         <div className="relative z-10 max-w-[650px]">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#065F46]/10 bg-[#EAF3E7] px-4 py-2 text-sm font-semibold text-[#065F46] shadow-[0_8px_30px_rgba(6,95,70,0.06)]">
             <span aria-hidden="true">🌱</span>
@@ -31,14 +31,15 @@ export default function HeroSection() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#events"
+              href="events"
               className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#065F46] px-7 text-base font-bold text-white shadow-[0_14px_34px_rgba(6,95,70,0.18)] transition-transform hover:-translate-y-0.5"
             >
-              Explore Events
+              Upcoming Events
+
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </a>
             <a
-              href="#create-event"
+              href="create-event"
               className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border-2 border-[#F97316] bg-white px-7 text-base font-bold text-[#065F46] shadow-[0_10px_28px_rgba(249,115,22,0.08)] transition-transform hover:-translate-y-0.5"
             >
               Create an Event
