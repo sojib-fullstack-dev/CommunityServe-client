@@ -26,12 +26,12 @@ const Navbar = () => {
                     <Link href="/events" className="text-bold font-medium text-[#065F46] transition-colors hover:text-[#065F46]">
                         Upcoming Events
                     </Link>
-                    <Link href="/create-event" className="text-sm font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
+                    <Link href="/create-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
                         Create an Event
                     </Link>
-                    {/* <Link href="/#community" className="text-sm font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
-                        Community
-                    </Link> */}
+                    <Link href="/join-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
+                        Join Event
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-1">

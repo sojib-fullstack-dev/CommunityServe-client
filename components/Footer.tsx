@@ -5,8 +5,7 @@ import { Camera, Mail, MapPin, Phone } from "lucide-react";
 const quickLinks = [
   { label: "Upcoming Events", href: "/events" },
   { label: "Create Event", href: "/create-event" },
-
-  { label: "Contact", href: "mailto:hello@communityserve.org" },
+  { label: "Join Event", href: "/join-event" },
 ];
 
 export default function Footer() {
