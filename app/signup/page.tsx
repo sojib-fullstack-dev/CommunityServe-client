@@ -148,7 +148,19 @@ export default function SignUpPage() {
           </label>
           <label className="block text-sm font-bold text-[#065F46]">
             Password
-            <Input required type="password" name="password" minLength={8} placeholder="At least 8 characters" className="mt-2 h-12 rounded-xl border-[#065F46]/15 px-4 text-base text-[#065F46]" />
+            <Input
+              required
+              type="password"
+              name="password"
+              minLength={6}
+              pattern="(?=.*[A-Z])(?=.*[a-z]).{6,}"
+              title="Password must contain 6 characters, including 1 uppercase and 1 lowercase letter"
+              placeholder="At least 6 characters"
+              className="mt-2 h-12 rounded-xl border-[#065F46]/15 px-4 text-base text-[#065F46]"
+            />
+            <p className="mt-2 text-xs font-normal text-[#6C8179]">
+              Use 6+ characters with at least 1 uppercase and 1 lowercase letter.
+            </p>
           </label>
 
           <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#065F46] font-bold text-white shadow-[0_12px_30px_rgba(6,95,70,0.16)] cursor-pointer">

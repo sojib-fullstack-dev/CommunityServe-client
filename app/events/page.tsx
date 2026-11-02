@@ -2,8 +2,9 @@ import { IEvents } from "@/components/type/type";
 import EventCard from "@/components/Eventcard/EventCard";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { EventCardSkeleton } from "@/components/Eventcard/EventCardSkeleton";
 
-async function EventsContent() {
+async function EventsContent({ limit }: { limit?: number }) {
   await connection();
 
   let events: IEvents[] = [];
@@ -19,6 +20,15 @@ async function EventsContent() {
     }
 
     events = await res.json();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    events = events.filter((event) =>
+      new Date(event.eventDate).getTime() >= today.getTime()
+    );
+    events.sort((a, b) =>
+      new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
+    );
   } catch (error) {
     console.error(error);
     fetchFailed = true;
@@ -48,14 +58,14 @@ async function EventsContent() {
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {events.map((item: IEvents) => (
+      {(limit ? events.slice(0, limit) : events).map((item: IEvents) => (
         <EventCard key={item._id} event={item} />
       ))}
     </div>
   );
 }
 
-export default function EventsPage() {
+export default function EventsPage({ limit }: { limit?: number }) {
   return (
     <section className="min-h-screen bg-[#F8F5EC] px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8">
       <div className="mx-auto max-w-[1280px]">
@@ -71,8 +81,16 @@ export default function EventsPage() {
           </p>
         </header>
 
-        <Suspense fallback={<div className="text-center text-[#063E35]">Loading events...</div>}>
-          <EventsContent />
+        <Suspense
+          fallback={
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+              {Array.from({ length: limit ?? 12 }).map((_, index) => (
+                <EventCardSkeleton key={index} />
+              ))}
+            </div>
+          }
+        >
+          <EventsContent limit={limit} />
         </Suspense>
       </div>
     </section>

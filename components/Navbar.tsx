@@ -27,24 +27,26 @@ const navRoutes = [
     {
         name: "Upcoming Events",
         href: "/events",
-        description: "Find and join volunteer activities near you."
     },
     {
         name: "Create an Event",
         href: "/create-event",
-        description: "Organize a new community service project."
     },
     {
-        name: "Join Event",
+        name: "Joined Events",
         href: "/join-event",
-        description: "Participate in existing community events."
+    },
+     {
+        name: "Manage Events",
+        href: "/manage-event",
     }
+
 ];
 
 
 const Navbar = () => {
 
-    const { data: session } = authClient.useSession();
+    const { data: session, isPending } = authClient.useSession();
     const { resolvedTheme, setTheme } = useTheme();
     const user = session?.user;
 
@@ -71,15 +73,9 @@ const Navbar = () => {
                     <Link href="/events" className="text-bold font-medium text-[#065F46] transition-colors hover:text-[#065F46] dark:text-[#E7F1ED] dark:hover:text-[#B7E4C7]">
                         Upcoming Events
                     </Link>
-                    <Link href="/create-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46] dark:text-[#A8BBB4] dark:hover:text-[#B7E4C7]">
-                        Create an Event
-                    </Link>
-                    <Link href="/join-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46] dark:text-[#A8BBB4] dark:hover:text-[#B7E4C7]">
-                        Joined Events
-                    </Link>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
                     <button
                         type="button"
                         onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
@@ -94,7 +90,9 @@ const Navbar = () => {
                     </button>
 
                     {
-                        user ? <>
+                        isPending ? (
+                            <div className="size-10 animate-pulse rounded-full bg-[#EDF3F0]" />
+                        ) : user ? <>
 
                             <Popover>
                                 <PopoverTrigger
@@ -128,7 +126,7 @@ const Navbar = () => {
                                                         <span className="block text-sm font-bold text-[#065F46] group-hover:text-[#F97316] transition-colors">
                                                             {route.name}
                                                         </span>
-                                                     
+
                                                     </Link>
                                                 ))}
                                             </span>
@@ -163,6 +161,7 @@ const Navbar = () => {
 
                         </>
                     }
+                    
 
                 </div>
             </div>

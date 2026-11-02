@@ -154,9 +154,14 @@ export default function LoginPage() {
                 required
                 type={showPassword ? "text" : "password"}
                 name="password"
+                minLength={6}
+                pattern="(?=.*[A-Z])(?=.*[a-z]).{6,}"
+                title="Password must contain 6 characters, including 1 uppercase and 1 lowercase letter"
                 placeholder="Enter your password"
                 className="h-12 rounded-xl border-[#065F46]/15 px-4 pr-12 text-base text-[#065F46]"
-              />
+              /> <p className="mt-2 text-xs font-normal text-[#6C8179]">
+              Use 6+ characters with at least 1 uppercase and 1 lowercase letter.
+            </p>
               <button
                 type="button"
                 onClick={() => setShowPassword((visible) => !visible)}

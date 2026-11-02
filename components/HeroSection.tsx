@@ -91,8 +91,8 @@ export default function HeroSection() {
 
           <div className="relative aspect-[4/4.15] overflow-hidden rounded-[3rem_3rem_7rem_3rem] bg-[#D7E3CF] shadow-[0_30px_80px_rgba(37,79,62,0.18)] sm:aspect-[5/4] lg:aspect-[4/4.45] xl:aspect-[5/4.15]">
             <Image
-              src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1600&q=90"
-              alt="Diverse young community volunteers working together in a lush garden"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMT8O6gw8Sx_0ogMk5M6xl_aKm0mnTm6ltGX2UauzYag&s=10"
+              alt="Volunteers distributing essential food supplies to their community"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 54vw"
