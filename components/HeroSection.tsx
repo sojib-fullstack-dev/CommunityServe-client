@@ -14,7 +14,7 @@ export default function HeroSection() {
 
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-[1440px] items-center gap-12 px-6 py-12 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-16 xl:px-20">
         <div className="relative z-10 max-w-[650px]">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#065F46]/10 bg-[#EAF3E7] px-4 py-2 text-sm font-semibold text-[#065F46] shadow-[0_8px_30px_rgba(6,95,70,0.06)]">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#065F46]/10 bg-[#EAF3E7] px-4 py-2 text-sm font-semibold text-[#065F46] shadow-[0_8px_30px_rgba(6,95,70,0.06)] dark:border-[#B7E4C7]/20 dark:bg-[#18342B] dark:text-[#E7F1ED]">
             <span aria-hidden="true">🌱</span>
             <span>Together We Make a Difference</span>
           </div>

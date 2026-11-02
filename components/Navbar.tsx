@@ -1,9 +1,54 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { LogIn, Moon, Sun, UserPlus } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
+
+import {
+    Avatar,
+    AvatarBadge,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverDescription,
+    PopoverHeader,
+    PopoverTitle,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+
+const navRoutes = [
+    {
+        name: "Upcoming Events",
+        href: "/events",
+        description: "Find and join volunteer activities near you."
+    },
+    {
+        name: "Create an Event",
+        href: "/create-event",
+        description: "Organize a new community service project."
+    },
+    {
+        name: "Join Event",
+        href: "/join-event",
+        description: "Participate in existing community events."
+    }
+];
+
 
 const Navbar = () => {
+
+    const { data: session } = authClient.useSession();
+    const { resolvedTheme, setTheme } = useTheme();
+    const user = session?.user;
+
+
     return (
         <nav
             className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border/50 shadow-sm"
@@ -17,40 +62,108 @@ const Navbar = () => {
                         height={40}
                         className="object-contain"
                     />
-                    <span className="text-xl font-bold tracking-tight  text-green-700">
-                        Community<span className="text-orange-600">Serve</span>
+                    <span className="text-xl font-bold tracking-tight text-green-700 dark:text-[#B7E4C7]">
+                        Community<span className="text-orange-600 dark:text-[#FDBA74]">Serve</span>
                     </span>
                 </Link>
 
                 <div className="hidden items-center gap-8 lg:flex">
-                    <Link href="/events" className="text-bold font-medium text-[#065F46] transition-colors hover:text-[#065F46]">
+                    <Link href="/events" className="text-bold font-medium text-[#065F46] transition-colors hover:text-[#065F46] dark:text-[#E7F1ED] dark:hover:text-[#B7E4C7]">
                         Upcoming Events
                     </Link>
-                    <Link href="/create-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
+                    <Link href="/create-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46] dark:text-[#A8BBB4] dark:hover:text-[#B7E4C7]">
                         Create an Event
                     </Link>
-                    <Link href="/join-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46]">
-                        Join Event
+                    <Link href="/join-event" className="text-bold font-medium text-[#486B61] transition-colors hover:text-[#065F46] dark:text-[#A8BBB4] dark:hover:text-[#B7E4C7]">
+                        Joined Events
                     </Link>
                 </div>
 
-                <div className="flex items-center gap-1">
-                    <Link
-                        href="/login"
-                        className="hidden rounded-full px-4 py-2 text-sm font-bold text-[#065F46] transition-colors hover:bg-[#EAF3E7] sm:inline-flex"
+                <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                        className="flex size-13 cursor-pointer items-center justify-center rounded-full text-[#065F46] transition-colors hover:bg-[#EAF3E7]"
+                        aria-label={resolvedTheme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+                        title={resolvedTheme === "dark" ? "Light theme" : "Dark theme"}
+                        suppressHydrationWarning
                     >
-                        Login
-                    </Link>
-                    <Link
-                        href="/signup"
-                     className="hidden rounded-full px-4 py-2 text-sm font-bold text-[#065F46] transition-colors hover:bg-[#EAF3E7] sm:inline-flex"
-                    >
-                        Sign up
-                    </Link>
-                    <Link href='/profile' className="hidden rounded-full px-4 py-2 text-sm font-bold text-[#065F46] transition-colors hover:bg-[#EAF3E7] sm:inline-flex">
-                      Profile
-                    </Link>
-                    
+                        <span suppressHydrationWarning>
+                            {resolvedTheme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
+                        </span>
+                    </button>
+
+                    {
+                        user ? <>
+
+                            <Popover>
+                                <PopoverTrigger
+                                    nativeButton={false}
+                                    render={
+                                        <Avatar className="cursor-pointer border-2 border-[#065F46]/20 transition hover:border-[#065F46]/50">
+                                            <AvatarImage referrerPolicy="no-referrer" src={user?.image || ""} />
+                                            <AvatarFallback className="bg-[#065F46] text-white font-bold">{user?.name?.charAt(0)}</AvatarFallback>
+                                            <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+                                        </Avatar>
+                                    }
+                                />
+
+                                <PopoverContent align="start" className="w-64 rounded-2xl border border-[#065F46]/10 bg-white p-4 shadow-[0_12px_40px_rgba(6,95,70,0.12)]">
+                                    <PopoverHeader className="space-y-2">
+
+                                        <PopoverTitle className="text-lg font-black text-[#065F46]">
+                                            {user?.name}
+                                        </PopoverTitle>
+
+                                        <PopoverDescription className="flex flex-col gap-3 text-sm text-[#6C8179]">
+                                            <span className="truncate">{user?.email}</span>
+
+                                            <span>
+                                                {navRoutes.map((route, index) => (
+                                                    <Link
+                                                        key={index}
+                                                        href={route.href}
+                                                        className="group block p-2 rounded-xl transition hover:bg-[#F8F5EC] text-left"
+                                                    >
+                                                        <span className="block text-sm font-bold text-[#065F46] group-hover:text-[#F97316] transition-colors">
+                                                            {route.name}
+                                                        </span>
+                                                     
+                                                    </Link>
+                                                ))}
+                                            </span>
+
+
+                                            <button
+                                                onClick={() => authClient.signOut()}
+                                                className="w-full rounded-xl bg-[#EA4335] h-10 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#D93025] hover:shadow-[0_4px_12px_rgba(234,67,53,0.2)] cursor-pointer"
+                                            >
+                                                Sign Out
+                                            </button>
+                                        </PopoverDescription>
+                                    </PopoverHeader>
+                                </PopoverContent>
+                            </Popover>
+                        </> : <>
+
+                            <Link
+                                href="/login"
+                                className="hidden items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold text-[#065F46] transition-colors hover:bg-[#EAF3E7] sm:inline-flex"
+                            >
+                                <LogIn className="size-4" />
+                                Login
+                            </Link>
+                            <Link
+                                href="/signup"
+                                className="hidden items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold text-[#065F46] transition-colors hover:bg-[#EAF3E7] sm:inline-flex"
+                            >
+                                <UserPlus className="size-4" />
+                                Sign up
+                            </Link>
+
+                        </>
+                    }
+
                 </div>
             </div>
         </nav>

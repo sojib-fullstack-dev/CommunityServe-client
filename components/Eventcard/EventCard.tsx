@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CalendarDays, MapPin } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { IEvents } from "@/components/type/type";
 
 const categoryStyles: Record<IEvents["eventType"], string> = {
@@ -79,6 +79,8 @@ export const EventCard = ({ event }: { event: IEvents }) => {
           className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg bg-[#008C45] text-sm font-semibold text-white shadow-sm transition hover:bg-[#00783B] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#008C45]/30"
         >
           View Details
+         <ArrowRight className="ml-2 size-4" />
+          
         </Link>
       </div>
     </article>

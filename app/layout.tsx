@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Toast } from "@base-ui/react";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +26,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full">
-        <Navbar />
-        {children}
-        <Footer />
-        <Toaster position="top-center" toastOptions={{ style: { background: 'linear-gradient(to bottom, #fff, #f3f4f6)' } }} />
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster position="top-center" toastOptions={{ style: { background: "linear-gradient(to bottom, #fff, #f3f4f6)" } }} />
+        </ThemeProvider>
 
       </body>
     </html>
