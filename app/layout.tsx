@@ -28,10 +28,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full">
+      <body className="min-h-screen flex flex-col">
         <ThemeProvider>
           <Navbar />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
           <Footer />
           <Toaster position="top-center" toastOptions={{ style: { background: "linear-gradient(to bottom, #fff, #f3f4f6)" } }} />
         </ThemeProvider>

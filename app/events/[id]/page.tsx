@@ -4,6 +4,9 @@ import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { IEvents } from "@/components/type/type";
 import { Suspense } from "react";
 import JoinButton from "@/components/Eventcard/JoinButton";
+import EventEdit from "@/components/Eventcard/EventEdit";
+import Eventdelete from "@/components/Eventcard/Eventdelete";
+import { notFound } from "next/navigation";
 
 export default function EventDetailsPage({ params }: {
   params: Promise<{ id: string }>;
@@ -23,10 +26,13 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
   });
 
   if (!res.ok) {
-    return <p className="pt-28 text-center">Event not found</p>;
+    notFound();
   }
 
-  const event: IEvents = await res.json();
+  const event: IEvents | null = await res.json().catch(() => null);
+  if (!event) {
+    notFound();
+  }
 
   const date = new Date(`${event.eventDate}T00:00:00`);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -61,9 +67,17 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
               {event.eventType}
             </p>
 
-            <h1 className="mt-2 text-3xl font-bold text-[#063E35] sm:text-4xl">
-              {event.title}
-            </h1>
+            <div className="mt-2 flex items-start justify-between gap-4">
+              <h1 className="text-3xl font-bold text-[#063E35] sm:text-4xl">
+                {event.title}
+              </h1>
+               
+            <div className="flex gap-2 shrink-0 items-center">
+                <EventEdit  event={event}/>
+               <Eventdelete event={event}/>
+            </div>
+       
+            </div>
 
             <div className="mt-5 flex flex-col gap-3 border-y border-[#EDF1EF] py-5 text-sm text-[#526B64] sm:flex-row sm:gap-8">
               <div className="flex items-center gap-2.5">
