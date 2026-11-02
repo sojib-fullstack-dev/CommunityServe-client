@@ -4,8 +4,6 @@ import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { IEvents } from "@/components/type/type";
 import { Suspense } from "react";
 import JoinButton from "@/components/Eventcard/JoinButton";
-import EventEdit from "@/components/Eventcard/EventEdit";
-import Eventdelete from "@/components/Eventcard/Eventdelete";
 import { notFound } from "next/navigation";
 
 export default function EventDetailsPage({ params }: {
@@ -71,12 +69,7 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
               <h1 className="text-3xl font-bold text-[#063E35] sm:text-4xl">
                 {event.title}
               </h1>
-               
-            <div className="flex gap-2 shrink-0 items-center">
-                <EventEdit  event={event}/>
-               <Eventdelete event={event}/>
-            </div>
-       
+
             </div>
 
             <div className="mt-5 flex flex-col gap-3 border-y border-[#EDF1EF] py-5 text-sm text-[#526B64] sm:flex-row sm:gap-8">

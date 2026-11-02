@@ -27,16 +27,17 @@ const EventEdit = ({ event }: { event: IEvents }) => {
   const [loading, setLoading] = useState(false);
 
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();  
+    e.preventDefault();
 
     const form = (e.currentTarget)
-    const formData = new  FormData(form);
-    
+    const formData = new FormData(form);
+
     const updatedData = {
       title: formData.get("title"),
       description: formData.get("description"),
       eventDate: formData.get("eventDate"),
-     location: formData.get("location"),
+      location: formData.get("location"),
+     thumbnail: formData.get("thumbnail")
     };
 
     setLoading(true);
@@ -44,7 +45,7 @@ const EventEdit = ({ event }: { event: IEvents }) => {
       const res = await fetch(`http://localhost:5000/create-event/${event._id}`, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json", 
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedData),
       });
@@ -52,7 +53,7 @@ const EventEdit = ({ event }: { event: IEvents }) => {
       if (res.ok) {
         toast.success("Event updated successfully!");
         setOpen(false);
-        router.refresh(); 
+        router.refresh();
       } else {
         const result = await res.json().catch(() => null);
         toast.error(result?.message || "Failed to update event");
@@ -78,40 +79,44 @@ const EventEdit = ({ event }: { event: IEvents }) => {
           Edit Event
         </Button>
         } />
-        <DialogContent className="sm:max-w-sm">
-          <DialogHeader>
-            <DialogTitle>Edit Event</DialogTitle>
-            <DialogDescription>
-                Make changes to your event here. Click save when you&apos;re done.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleEdit}>
-            <FieldGroup>
-              <Field>
-                <Label htmlFor={`title-${event._id}`}>Name</Label>
-                <Input id={`title-${event._id}`} name="title" defaultValue={event.title} />
-              </Field>
-              <Field>
-                <Label htmlFor={`description-${event._id}`}>Description</Label>
-                <Input id={`description-${event._id}`} name="description" defaultValue={event.description} />
-              </Field>
-                 <Field>
-                <Label htmlFor={`location-${event._id}`}>location</Label>
-                <Input id={`location-${event._id}`} name="location" defaultValue={event.location} />
-              </Field>
-              <Field>
-                <Label htmlFor={`eventDate-${event._id}`}>Event Date</Label>
-                <Input id={`eventDate-${event._id}`} name="eventDate" type="date" defaultValue={event.eventDate} />
-              </Field>
-            </FieldGroup>
-            <DialogFooter>
-              <DialogClose render={<Button type="button" variant="outline">Cancel</Button>} />
-              <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save changes"}
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
+      <DialogContent className="sm:max-w-sm">
+        <DialogHeader>
+          <DialogTitle>Edit Event</DialogTitle>
+          <DialogDescription>
+            Make changes to your event here. Click save when you&apos;re done.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleEdit}>
+          <FieldGroup>
+            <Field>
+              <Label htmlFor={`title-${event._id}`}>Name</Label>
+              <Input id={`title-${event._id}`} name="title" defaultValue={event.title} />
+            </Field>
+            <Field>
+              <Label htmlFor={`description-${event._id}`}>Description</Label>
+              <Input id={`description-${event._id}`} name="description" defaultValue={event.description} />
+            </Field>
+            <Field>
+              <Label htmlFor={`location-${event._id}`}>location</Label>
+              <Input id={`location-${event._id}`} name="location" defaultValue={event.location} />
+            </Field>
+            <Field>
+              <Label htmlFor={`eventDate-${event._id}`}>Event Date</Label>
+              <Input id={`eventDate-${event._id}`} name="eventDate" type="date" defaultValue={event.eventDate} />
+            </Field>
+            <Field>
+              <Label htmlFor={`thumbnail-${event._id}`}>Image Url</Label>
+              <Input id={`thumbnail-${event._id}`} name="thumbnail" type="url" defaultValue={event.thumbnail} />
+            </Field>
+          </FieldGroup>
+          <DialogFooter>
+            <DialogClose render={<Button type="button" variant="outline">Cancel</Button>} />
+            <Button type="submit" disabled={loading}>
+              {loading ? "Saving..." : "Save changes"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 };

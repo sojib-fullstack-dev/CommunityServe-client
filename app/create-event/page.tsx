@@ -4,37 +4,58 @@ import Image from "next/image";
 import { CalendarDays, FileText, LockKeyhole, MapPin, Tag, AlignLeft, ImageIcon } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
 
 export default function CreateEventPage() {
   const [descriptionLength, setDescriptionLength] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
- const handleSubmit= async (event: FormEvent<HTMLFormElement>) => {
+const { data: session } = authClient.useSession();
+      const user= session?.user
+      // console.log(user)
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const fromData=new FormData(event.currentTarget);
-    const data= Object.fromEntries(fromData.entries());
-    // console.log(data);
-        
-  const res=await fetch('http://localhost:5000/create-event',{
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json'
-          },
-          body:JSON.stringify(data)
-    })
-     const result=await res.json();
-     if(result){
-      toast.success('Event created successfully!');
-    }
 
-    if(result.error){
-      toast.error('Failed to create event. Please try again.');
+    if (!user) {
+      toast.error("Please login to create an event!");
       return;
     }
-  
+
+    const fromData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(fromData.entries());
+    const form = event.currentTarget;
     
-    //  console.log(result);
-       
+    const data = {
+      ...formValues,
+      email: user?.email, 
+    };
+
+    try {
+      setIsSubmitting(true);
+      const res = await fetch('http://localhost:5000/create-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        toast.success('Event created successfully!');
+        form.reset();
+        setDescriptionLength(0);
+
+      } else {
+        toast.error('Failed to create event. Please try again.');
       }
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      toast.error("Something went wrong. Failed to connect to server.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <section className="min-h-screen bg-[#F8F5EC]  px-4 pt-20 pb-10 sm:px-6 sm:py-28 ">
@@ -166,9 +187,10 @@ export default function CreateEventPage() {
 
           <button
             type="submit"
-            className="mt-1 h-12 w-full rounded-lg bg-[#008C45] text-sm font-semibold text-white transition hover:bg-[#00783B] shadow-sm cursor-pointer"
+            disabled={isSubmitting}
+            className="mt-1 h-12 w-full rounded-lg bg-[#008C45] text-sm font-semibold text-white transition hover:bg-[#00783B] shadow-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Submit Event
+            {isSubmitting ? "Submitting..." : "Submit Event"}
           </button>
 
           <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[#74847F]">
