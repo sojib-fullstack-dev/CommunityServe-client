@@ -6,4 +6,7 @@ export interface IEvents {
   thumbnail: string;
   location: string;
   eventDate: string;
+  email?: string;
+  creatorName?: string;
+  creatorImage?: string;
 }

@@ -33,16 +33,39 @@ async function JoinEventContent() {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/join-event/${userData.email}`,
+      `http://localhost:5000/join-event/${encodeURIComponent(userData.email)}`,
       { cache: "no-store" },
     );
 
     if (response.ok) {
-      jointData = await response.json();
+      const data = await response.json();
+      jointData = Array.isArray(data) ? data : data ? [data] : [];
     }
   } catch (error) {
     console.error(error);
   }
+
+  jointData = await Promise.all(
+    jointData.map(async (event) => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/join-event/event/${encodeURIComponent(event.eventId)}`,
+          { cache: "no-store" },
+        );
+
+        if (!response.ok) return event;
+
+        const joiners = await response.json();
+        return {
+          ...event,
+          joiners: Array.isArray(joiners) ? joiners : [],
+        };
+      } catch (error) {
+        console.error(error);
+        return event;
+      }
+    }),
+  );
 
   return (
     <main className="min-h-screen bg-[#F8F5EC] px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8">

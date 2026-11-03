@@ -14,11 +14,31 @@ export interface JointEvent {
   thumbnail: string;
   location: string;
   eventDate: string;
+  userName?: string;
+  userEmail?: string;
+  userImage?: string;
+  joiners?: Array<{
+    userId?: string;
+    userName?: string;
+    userEmail?: string;
+    userImage?: string;
+  }>;
 }
 
 export default function JoinEventCard({ event }: { event: JointEvent }) {
 
 const router = useRouter();
+
+const formattedDate = (() => {
+    const date = new Date(`${event.eventDate}T00:00:00`);
+    return Number.isNaN(date.getTime())
+        ? event.eventDate
+        : date.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
+})();
 
 const handleCancel = async () => {
     try {
@@ -32,10 +52,18 @@ const handleCancel = async () => {
         } else {
             toast.error("Failed to cancel event");
         }
-    } catch (error) {
+    } catch {
         toast.error("Something went wrong!");
     }
 }
+
+const joinedUsers = event.joiners?.length
+    ? event.joiners
+    : [{
+        userName: event.userName,
+        userEmail: event.userEmail,
+        userImage: event.userImage,
+    }];
 
 
   return (
@@ -73,9 +101,46 @@ const handleCancel = async () => {
           </div>
           <div className="flex items-center gap-2">
             <CalendarDays className="size-4 text-[#F97316]" />
-            <span>{event.eventDate}</span>
+            <time dateTime={event.eventDate}>{formattedDate}</time>
           </div>
         </div>
+
+        {joinedUsers.some((user) => user.userName || user.userEmail || user.userImage) && (
+          <div className="mt-4 rounded-lg bg-[#F8F5EC] p-3">
+            <p className="mb-3 text-xs font-bold text-[#687A75]">Joined by</p>
+            <div className="space-y-3">
+              {joinedUsers.map((user, index) => (
+                <div
+                  key={user.userId || user.userEmail || `${user.userName}-${index}`}
+                  className="flex items-center gap-3"
+                >
+                  {user.userImage ? (
+                    <Image
+                      src={user.userImage}
+                      alt={user.userName || "Joined user"}
+                      width={44}
+                      height={44}
+                      unoptimized
+                      className="size-11 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex size-11 items-center justify-center rounded-full bg-[#008C45] font-bold text-white">
+                      {user.userName?.charAt(0).toUpperCase() || "U"}
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <p className="truncate font-bold text-[#063E35]">
+                      {user.userName || user.userEmail || "User"}
+                    </p>
+                    {user.userEmail && (
+                      <p className="truncate text-xs text-[#687A75]">{user.userEmail}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-5 grid grid-cols-2 gap-3">
           <Link

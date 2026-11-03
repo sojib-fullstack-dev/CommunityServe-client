@@ -20,6 +20,9 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const res = await fetch(`http://localhost:5000/create-event/${id}`, {
+    headers:{
+       authorization: 'user login'
+    },
     cache: "no-store",
   });
 
@@ -31,6 +34,7 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
   if (!event) {
     notFound();
   }
+console.log(event)
 
   const date = new Date(`${event.eventDate}T00:00:00`);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -83,6 +87,37 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
                 <time dateTime={event.eventDate}>{formattedDate}</time>
               </div>
             </div>
+
+            {event.email && (
+              <div className="mt-4 flex items-center gap-3 text-sm text-[#526B64]">
+                {event.creatorImage ? (
+                  <Image
+                    src={event.creatorImage}
+                    alt={event.creatorName || "Event creator"}
+                    width={44}
+                    height={44}
+                    unoptimized
+                    className="size-11 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="flex size-11 items-center justify-center rounded-full bg-[#008C45] font-bold text-white">
+                    {event.creatorName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                )}
+                <div>
+                  <p className="text-xs text-[#687A75]">Created by</p>
+                  <a
+                    href={`mailto:${event.email}`}
+                    className="font-semibold text-[#008C45] hover:underline"
+                  >
+                    {event.creatorName || event.email}
+                  </a>
+                  {event.creatorName && (
+                    <p className="text-xs text-[#687A75]">{event.email}</p>
+                  )}
+                </div>
+              </div>
+            )}
 
             <div className='flex justify-between items-center'>
               <p className="mt-6 leading-7 text-[#687A75]">

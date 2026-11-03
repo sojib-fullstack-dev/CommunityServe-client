@@ -65,7 +65,8 @@ async function EventsContent({ limit }: { limit?: number }) {
   );
 }
 
-export default function EventsPage({ limit }: { limit?: number }) {
+export default function EventsPage() {
+  const limit = 12;
   return (
     <section className="min-h-screen bg-[#F8F5EC] px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8">
       <div className="mx-auto max-w-[1280px]">

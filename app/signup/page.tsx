@@ -37,7 +37,7 @@ export default function SignUpPage() {
     const formData = new FormData(event.currentTarget);
     const user = Object.fromEntries(formData.entries()) as { name: string, email: string, image: string, password: string }
     // console.log(user)
-    // router.push("/");
+    router.push("/");
     const { data, error } = await authClient.signUp.email({
       ...user
     })
@@ -144,7 +144,7 @@ export default function SignUpPage() {
           </label>
           <label className="block text-sm font-bold text-[#065F46]">
             Profile Photo Url
-            <Input type="url" name="profilePhotoUrl" placeholder="https://example.com/photo.jpg" className="mt-2 h-12 rounded-xl border-[#065F46]/15 px-4 text-base text-[#065F46]" />
+            <Input type="url" name="image" placeholder="https://example.com/photo.jpg" className="mt-2 h-12 rounded-xl border-[#065F46]/15 px-4 text-base text-[#065F46]" />
           </label>
           <label className="block text-sm font-bold text-[#065F46]">
             Password

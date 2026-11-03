@@ -39,7 +39,9 @@ const { data: session } = authClient.useSession();
     
     const data = {
       ...formValues,
-      email: user?.email, 
+      email: user?.email,
+      creatorName: user?.name,
+      creatorImage: user?.image,
     };
 
     try {
