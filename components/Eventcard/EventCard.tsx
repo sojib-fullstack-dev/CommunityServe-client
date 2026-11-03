@@ -64,7 +64,7 @@ export const EventCard = ({ event }: { event: IEvents }) => {
         <div className="mt-5 space-y-2.5 border-t border-[#EDF1EF] pt-4 text-sm text-[#526B64]">
           <div className="flex items-start gap-2.5">
             <MapPin className="mt-0.5 size-4 shrink-0 text-[#F97316]" />
-            <span>{event.location}</span>
+            <span className="min-w-0 break-words">{event.location}</span>
           </div>
           <div className="flex items-center gap-2.5">
             <CalendarDays className="size-4 shrink-0 text-[#F97316]" />

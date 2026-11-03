@@ -66,7 +66,7 @@ const Navbar = () => {
         <nav
             className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border/50 shadow-sm"
         >
-            <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 sm:px-10 lg:px-16 xl:px-20">
+            <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 sm:px-10 lg:px-16 xl:px-20">
                 <Link href="/" className="flex items-center gap-1" aria-label="CommunityServe home">
                     <Image
                         src="/assets/logo.png"

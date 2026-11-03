@@ -21,7 +21,7 @@ const galleryItems = [
 
 export default function GallerySection() {
   return (
-    <section className="bg-white px-6 py-16 sm:px-10 lg:px-16 cursor-pointer">
+    <section className="bg-white px-4 py-16 sm:px-10 lg:px-16 cursor-pointer">
       <div className="mx-auto max-w-[1280px]">
         <div className="mb-8 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#F97316]">

@@ -127,11 +127,11 @@ export default function LoginPage() {
 
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-[#F8F5EC] px-6 pt-24 pb-12">
-      <div className="w-full max-w-md rounded-[2rem] border border-[#065F46]/10 bg-white p-7 shadow-[0_24px_70px_rgba(6,95,70,0.12)] sm:p-10">
+    <section className="flex min-h-screen items-center justify-center bg-[#F8F5EC] px-4 pt-24 pb-12 sm:px-6">
+      <div className="w-full max-w-md rounded-[2rem] border border-[#065F46]/10 bg-white p-5 shadow-[0_24px_70px_rgba(6,95,70,0.12)] sm:p-10">
         <div className="mb-8">
           <p className="mb-3 text-sm font-bold text-[#F97316]">Welcome back</p>
-          <h1 className="text-4xl font-black tracking-tight text-[#065F46]">Log in</h1>
+          <h1 className="text-3xl font-black tracking-tight text-[#065F46] sm:text-4xl">Log in</h1>
           <p className="mt-3 text-[#6C8179]">Continue making a difference in your community.</p>
         </div>
 
@@ -185,7 +185,7 @@ export default function LoginPage() {
           <div className="h-px flex-1 bg-[#065F46]/10" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
             onClick={handleGoogleSignUp}
             type="button"

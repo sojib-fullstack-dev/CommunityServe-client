@@ -12,14 +12,14 @@ export default function HeroSection() {
     <section className="relative isolate min-h-screen overflow-hidden bg-[#F8F5EC] pt-20 text-[#065F46]">
       <div className="absolute inset-x-0 top-0 h-44 bg-[radial-gradient(circle_at_12%_20%,rgba(249,115,22,0.08),transparent_24%)]" />
 
-      <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-[1440px] items-center gap-12 px-6 py-12 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-16 xl:px-20">
+      <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-[1440px] items-center gap-8 px-4 py-12 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-16 lg:py-16 xl:px-20">
         <div className="relative z-10 max-w-[650px]">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#065F46]/10 bg-[#EAF3E7] px-4 py-2 text-sm font-semibold text-[#065F46] shadow-[0_8px_30px_rgba(6,95,70,0.06)] dark:border-[#B7E4C7]/20 dark:bg-[#18342B] dark:text-[#E7F1ED]">
             <span aria-hidden="true">🌱</span>
             <span>Together We Make a Difference</span>
           </div>
 
-          <h1 className="max-w-[620px] text-[clamp(3.25rem,7vw,6.75rem)] leading-[0.92] font-black tracking-[-0.065em] text-[#065F46]">
+          <h1 className="max-w-[620px] text-[clamp(2.75rem,12vw,3.25rem)] leading-[0.92] font-black tracking-[-0.065em] text-[#065F46] sm:text-[clamp(3.25rem,7vw,6.75rem)]">
             <span className="block">Small Acts.</span>
             <span className="mt-2 block text-[#F97316]">Big Changes.</span>
           </h1>
@@ -32,7 +32,7 @@ export default function HeroSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="events"
-              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#065F46] px-7 text-base font-bold text-white shadow-[0_14px_34px_rgba(6,95,70,0.18)] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full bg-[#065F46] px-7 text-base font-bold text-white shadow-[0_14px_34px_rgba(6,95,70,0.18)] transition-transform hover:-translate-y-0.5 sm:w-auto"
             >
               Upcoming Events
 
@@ -40,7 +40,7 @@ export default function HeroSection() {
             </a>
             <a
               href="create-event"
-              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border-2 border-[#F97316] bg-white px-7 text-base font-bold text-[#065F46] shadow-[0_10px_28px_rgba(249,115,22,0.08)] transition-transform hover:-translate-y-0.5"
+              className="inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border-2 border-[#F97316] bg-white px-7 text-base font-bold text-[#065F46] shadow-[0_10px_28px_rgba(249,115,22,0.08)] transition-transform hover:-translate-y-0.5 sm:w-auto"
             >
               Create an Event
               <Plus className="h-5 w-5 text-[#F97316]" />

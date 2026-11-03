@@ -76,7 +76,7 @@ const { data: session } = authClient.useSession();
   }
 
   return (
-    <section className="min-h-screen bg-[#F8F5EC]  px-4 pt-20 pb-10 sm:px-6 sm:py-28 ">
+    <section className="min-h-screen bg-[#F8F5EC] px-2 pt-20 pb-10 sm:px-6 sm:py-28">
       <div className="mx-auto w-full max-w-[800px] rounded-[28px] border border-white/80 bg-white px-5 py-7 shadow-[0_18px_55px_rgba(31,78,68,0.10)] sm:px-9 sm:py-8">
         <header>
           <div className="flex items-center">

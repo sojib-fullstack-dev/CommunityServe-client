@@ -1,6 +1,6 @@
 export default function NewsletterSection() {
   return (
-    <section className="bg-[#F8F5EC] px-6 py-16 sm:px-10 lg:px-16">
+    <section className="bg-[#F8F5EC] px-4 py-16 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[1280px] rounded-3xl bg-[#065F46] px-6 py-10 text-center text-white sm:px-10 sm:py-12">
         <h2 className="text-3xl font-bold sm:text-4xl">
           Stay Connected

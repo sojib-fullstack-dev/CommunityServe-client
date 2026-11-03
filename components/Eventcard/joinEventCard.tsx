@@ -97,7 +97,7 @@ const joinedUsers = event.joiners?.length
         <div className="mt-4 space-y-2 border-t border-[#EDF1EF] pt-4 text-sm text-[#526B64]">
           <div className="flex items-center gap-2">
             <MapPin className="size-4 text-[#F97316]" />
-            <span>{event.location}</span>
+            <span className="min-w-0 break-words">{event.location}</span>
           </div>
           <div className="flex items-center gap-2">
             <CalendarDays className="size-4 text-[#F97316]" />
@@ -142,7 +142,7 @@ const joinedUsers = event.joiners?.length
           </div>
         )}
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Link
             href={`/events/${event.eventId}`}
             className="inline-flex h-11 items-center justify-center rounded-lg bg-[#008C45] text-sm font-bold text-white"

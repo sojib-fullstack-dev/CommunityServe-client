@@ -66,11 +66,11 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
               alt={event.title}
               width={1200}
               height={600}
-              className="h-72 w-full object-cover sm:h-96"
+              className="h-56 w-full object-cover sm:h-72 lg:h-96"
             />
           )}
 
-          <div className="p-6 sm:p-8">
+          <div className="p-5 sm:p-8">
 
 
             <p className="mt-6 text-sm font-bold capitalize text-[#008C45]">
@@ -78,7 +78,7 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
             </p>
 
             <div className="mt-2 flex items-start justify-between gap-4">
-              <h1 className="text-3xl font-bold text-[#063E35] sm:text-4xl">
+              <h1 className="text-2xl font-bold break-words text-[#063E35] sm:text-3xl lg:text-4xl">
                 {event.title}
               </h1>
 
