@@ -9,6 +9,12 @@ import { authClient } from "@/lib/auth-client";
 export default function CreateEventPage() {
   const [descriptionLength, setDescriptionLength] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const today = new Date();
+  const minDate = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0"),
+  ].join("-");
 
 const { data: session } = authClient.useSession();
       const user= session?.user
@@ -25,6 +31,11 @@ const { data: session } = authClient.useSession();
     const fromData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(fromData.entries());
     const form = event.currentTarget;
+
+    if (typeof formValues.eventDate === "string" && formValues.eventDate < minDate) {
+      toast.error("Past dates are not allowed. Please select today or a future date.");
+      return;
+    }
     
     const data = {
       ...formValues,
@@ -180,6 +191,7 @@ const { data: session } = authClient.useSession();
               id="eventDate"
               name="eventDate"
               type="date"
+              min={minDate}
               required
               className="h-12 w-full rounded-lg border border-[#DCE7E3] bg-[#FBFDFC] px-4 text-sm text-[#063E35] outline-none transition focus:border-[#0D9D95] focus:ring-3 focus:ring-[#0D9D95]/10"
             />
