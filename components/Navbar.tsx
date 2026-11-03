@@ -25,10 +25,6 @@ import {
 
 const navRoutes = [
     {
-        name: "Upcoming Events",
-        href: "/events",
-    },
-    {
         name: "Create an Event",
         href: "/create-event",
     },

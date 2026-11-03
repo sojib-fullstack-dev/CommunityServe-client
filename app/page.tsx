@@ -1,13 +1,14 @@
 import HeroSection from "@/components/HeroSection";
-import EventsPage from "./events/page";
+
 import GallerySection from "@/components/GallerySection";
 import NewsletterSection from "@/components/NewsletterSection";
+import EventsPage from "@/components/EventsPage";
 
 export default function Home() {
   return (
     <div>
       <HeroSection />
-      <EventsPage limit={6} />
+      <EventsPage />
       <GallerySection />
       <NewsletterSection />
     </div>

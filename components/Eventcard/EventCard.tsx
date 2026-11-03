@@ -74,14 +74,15 @@ export const EventCard = ({ event }: { event: IEvents }) => {
           </div>
         </div>
 
-        <Link
-          href={`/events/${event._id}`}
-          className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg bg-[#008C45] text-sm font-semibold text-white shadow-sm transition hover:bg-[#00783B] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#008C45]/30"
-        >
-          View Details
-         <ArrowRight className="ml-2 size-4" />
-          
-        </Link>
+        <div className="mt-auto pt-5">
+          <Link
+            href={`/events/${event._id}`}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[#008C45] text-sm font-semibold text-white shadow-sm transition hover:bg-[#00783B] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#008C45]/30"
+          >
+            View Details
+            <ArrowRight className="ml-2 size-4" />
+          </Link>
+        </div>
       </div>
     </article>
   );
