@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 
@@ -24,10 +25,17 @@ const Eventdelete = ({ event }: { event: IEvents }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
+
+      const { data:TokenData, error } = await authClient.token()
+               const token=TokenData?.token
     try {
       const res = await fetch(`http://localhost:5000/create-event/${event._id}`, {
-        method: "DELETE" 
-      });
+        method: "DELETE" ,
+        headers:{
+          authorization: `Bearer ${token}`
+        },
+      }
+     );
 
       if (res.ok) {
         toast.success("Event deleted successfully!");

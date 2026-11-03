@@ -7,6 +7,12 @@ import { Suspense } from "react";
 
 async function JoinEventContent() {
   await connection();
+     
+    const jwtToken= await auth.api.getToken({
+    headers: await headers()
+  })
+  const token=jwtToken?.token
+
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -35,7 +41,7 @@ async function JoinEventContent() {
     const response = await fetch(
       `http://localhost:5000/join-event/${encodeURIComponent(userData.email)}`,
       { cache: "no-store" },
-    );
+      );
 
     if (response.ok) {
       const data = await response.json();

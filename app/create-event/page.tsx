@@ -23,14 +23,17 @@ const { data: session } = authClient.useSession();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const form = event.target as HTMLFormElement;
+    const fromData = new FormData(form);
+    const formValues = Object.fromEntries(fromData.entries());
+
     if (!user) {
       toast.error("Please login to create an event!");
       return;
     }
 
-    const fromData = new FormData(event.currentTarget);
-    const formValues = Object.fromEntries(fromData.entries());
-    const form = event.currentTarget;
+  const { data:TokenData, error } = await authClient.token()
+           const token=TokenData?.token
 
     if (typeof formValues.eventDate === "string" && formValues.eventDate < minDate) {
       toast.error("Past dates are not allowed. Please select today or a future date.");
@@ -43,13 +46,15 @@ const { data: session } = authClient.useSession();
       creatorName: user?.name,
       creatorImage: user?.image,
     };
-
+              
     try {
       setIsSubmitting(true);
+             
       const res = await fetch('http://localhost:5000/create-event', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+           authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
       });

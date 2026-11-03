@@ -5,6 +5,8 @@ import { IEvents } from "@/components/type/type";
 import { Suspense } from "react";
 import JoinButton from "@/components/Eventcard/JoinButton";
 import { notFound } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export default function EventDetailsPage({ params }: {
   params: Promise<{ id: string }>;
@@ -18,10 +20,16 @@ export default function EventDetailsPage({ params }: {
 
 async function EventData({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+   
+  const jwtToken= await auth.api.getToken({
+    headers: await headers()
+  })
+  const token=jwtToken?.token
+  // console.log(token)
 
   const res = await fetch(`http://localhost:5000/create-event/${id}`, {
     headers:{
-       authorization: 'user login'
+       authorization: `Bearer ${token}`
     },
     cache: "no-store",
   });
@@ -34,7 +42,7 @@ async function EventData({ params }: { params: Promise<{ id: string }> }) {
   if (!event) {
     notFound();
   }
-console.log(event)
+// console.log(event)
 
   const date = new Date(`${event.eventDate}T00:00:00`);
   const formattedDate = date.toLocaleDateString("en-US", {

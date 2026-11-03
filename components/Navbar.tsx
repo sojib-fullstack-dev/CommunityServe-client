@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LogIn, Moon, Sun, UserPlus } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { toast } from "sonner";
 
 import {
     Avatar,
@@ -45,6 +46,20 @@ const Navbar = () => {
     const { data: session, isPending } = authClient.useSession();
     const { resolvedTheme, setTheme } = useTheme();
     const user = session?.user;
+
+    const handleSignOut = async () => {
+        try {
+            const { error } = await authClient.signOut();
+
+            if (error) {
+                throw new Error(error.message || "Sign out failed");
+            }
+
+            toast.success("Signed out successfully");
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Sign out failed");
+        }
+    };
 
 
     return (
@@ -129,7 +144,7 @@ const Navbar = () => {
 
 
                                             <button
-                                                onClick={() => authClient.signOut()}
+                                                onClick={handleSignOut}
                                                 className="w-full rounded-xl bg-[#EA4335] h-10 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#D93025] hover:shadow-[0_4px_12px_rgba(234,67,53,0.2)] cursor-pointer"
                                             >
                                                 Sign Out

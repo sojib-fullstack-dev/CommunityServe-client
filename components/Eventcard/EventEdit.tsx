@@ -20,6 +20,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { IEvents } from "@/components/type/type";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const EventEdit = ({ event }: { event: IEvents }) => {
   const router = useRouter();
@@ -39,6 +40,9 @@ const EventEdit = ({ event }: { event: IEvents }) => {
       location: formData.get("location"),
      thumbnail: formData.get("thumbnail")
     };
+                  
+      const { data:TokenData, error } = await authClient.token()
+               const token=TokenData?.token
 
     setLoading(true);
     try {
@@ -46,6 +50,7 @@ const EventEdit = ({ event }: { event: IEvents }) => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`
         },
         body: JSON.stringify(updatedData),
       });
