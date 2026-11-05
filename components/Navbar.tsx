@@ -36,6 +36,10 @@ const navRoutes = [
      {
         name: "Manage Events",
         href: "/manage-event",
+    },
+       {
+        name: "Profile",
+        href: "/profile",
     }
 
 ];
