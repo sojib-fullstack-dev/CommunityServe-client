@@ -2,9 +2,8 @@
 
 CommunityServe is a community-driven social development platform where people can create, discover, and join social service events to make a positive impact in their communities.
 
-[## Live Website](https://community-serve-omega.vercel.app/)
+https://community-serve-omega.vercel.app
 
-[CommunityServe](http://localhost:3000/)
 
 ## GitHub Repositories
 
